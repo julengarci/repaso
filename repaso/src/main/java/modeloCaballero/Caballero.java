@@ -1,5 +1,8 @@
 package modeloCaballero;
 
+import modeloArma.Arma;
+import modeloEscudo.Escudo;
+
 public class Caballero {
 
 	private int id;
@@ -7,6 +10,8 @@ public class Caballero {
 	private int fuerza;
 	private int experiencia;
 	private String foto;
+	private Arma arma;
+	private Escudo escudo;
 	
 	public int getId() {
 		return id;
@@ -38,11 +43,23 @@ public class Caballero {
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
+	public Arma getArma() {
+		return arma;
+	}
+	public void setArma(Arma arma) {
+		this.arma = arma;
+	}
+	public Escudo getEscudo() {
+		return escudo;
+	}
+	public void setEscudo(Escudo escudo) {
+		this.escudo = escudo;
+	}
 	
 	@Override
 	public String toString() {
 		return "Caballero [id=" + id + ", nombre=" + nombre + ", fuerza=" + fuerza + ", experiencia=" + experiencia
-				+ ", foto=" + foto + "]";
+				+ ", foto=" + foto + ", arma=" + arma + ", escudo=" + escudo + "]";
 	}
 	
 }

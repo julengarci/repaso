@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import connection.Conector;
+import modeloArma.Arma;
 
 public class CaballeroModelo {
 
@@ -32,6 +33,9 @@ public class CaballeroModelo {
 				caballero.setFuerza(rs.getInt(3));
 				caballero.setExperiencia(rs.getInt(4));
 				caballero.setFoto(rs.getString(5));
+				
+				Arma arma = new Arma();
+				
 				
 				caballeros.add(caballero);
 			}
