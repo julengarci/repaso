@@ -7,8 +7,6 @@ public class Conector {
 	
 	protected Connection conexion;
 
-	/**
-	 */
 	public Conector() {
 			try {
 				Class.forName("com.mysql.cj.jdbc.Driver");
