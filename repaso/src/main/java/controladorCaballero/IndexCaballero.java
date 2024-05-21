@@ -10,8 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import connection.Conector;
+import modeloArma.Arma;
+import modeloArma.ArmaModelo;
 import modeloCaballero.Caballero;
 import modeloCaballero.CaballeroModelo;
+import modeloEscudo.Escudo;
+import modeloEscudo.EscudoModelo;
 
 /**
  * Servlet implementation class IndexCaballero
@@ -40,6 +44,7 @@ public class IndexCaballero extends HttpServlet {
 		ArrayList<Caballero> caballeros = cm.getCaballeros();
 		
 		request.setAttribute("caballeros", caballeros);
+		
 		
 		request.getRequestDispatcher("PanelCaballeros.jsp").forward(request, response);
 		

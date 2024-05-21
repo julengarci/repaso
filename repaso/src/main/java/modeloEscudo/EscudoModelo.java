@@ -26,6 +26,11 @@ public class EscudoModelo {
 			
 			while (rs.next()) {
 				Escudo escudo = new Escudo();
+				escudo.setId(rs.getInt(1));
+				escudo.setNombre(rs.getString(2));
+				escudo.setCapacidad_defensa(rs.getInt(3));
+				
+				escudos.add(escudo);
 				
 			}
 		} catch (Exception e) {
