@@ -4,6 +4,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import com.mysql.cj.jdbc.BlobFromLocator;
+
 import connection.Conector;
 import modeloArma.Arma;
 import modeloEscudo.Escudo;
@@ -102,6 +104,25 @@ public class CaballeroModelo {
 			// TODO: handle exception
 		}
 		
+	}
+	
+	public boolean checkNombreDisponible(Caballero caballero) {
+		boolean existe = false;
+		try {
+			PreparedStatement pst = conector.getConexion().prepareStatement("SELECT * FROM CABALLEROS WHERE NOMBRE= ?");
+			pst.setString(1, caballero.getNombre());
+			ResultSet rs = pst.executeQuery();
+			
+			if (rs.next()) {
+				existe = true;
+			}
+			else {
+				existe = false;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return existe;
 	}
 	
 }

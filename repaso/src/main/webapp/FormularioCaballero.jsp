@@ -28,8 +28,8 @@
 	  </div>
 	  <div class="mb-3">
           <label class="form-label">arma:</label> 
-          <select class="form-select" id="arma" name="arma" required>
-              <option value="" selected disabled>arma</option>
+          <select class="form-select" id="arma" name="arma">
+              <option value="arma">arma</option>
               <c:forEach items="${armas}" var="arma">
                   <option value="${arma.id}"> ${arma.nombre}</option>
               </c:forEach>
@@ -37,8 +37,8 @@
       </div>
 	  <div class="mb-3">
           <label class="form-label">escudo:</label> 
-          <select class="form-select" id="escudo" name="escudo" required>
-              <option value="" selected disabled>escudo</option>
+          <select class="form-select" id="escudo" name="escudo">
+              <option value="escudo">escudo</option>
               <c:forEach items="${escudos}" var="escudo">
                   <option value="${escudo.id}"> ${escudo.nombre}</option>
               </c:forEach>

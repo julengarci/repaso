@@ -60,30 +60,50 @@ public class InsertCaballero extends HttpServlet {
 		Caballero caballero = new Caballero();
 
 		String nombre = request.getParameter("nombre");
-		int fuerza = Integer.parseInt(request.getParameter("fuerza"));
-		int experiencia = Integer.parseInt(request.getParameter("experiencia"));
-		String foto = request.getParameter("foto");
-		int id_arma = Integer.parseInt(request.getParameter("arma"));
-		int id_escudo = Integer.parseInt(request.getParameter("escudo"));
+		int fuerza;
+
+		if (request.getParameter("fuerza").equals("")) {
+			fuerza = 0;
+			
+			int experiencia = Integer.parseInt(request.getParameter("experiencia"));
+			String foto = request.getParameter("foto");
+
+			if (request.getParameter("arma").equals("arma") || request.getParameter("escudo").equals("escudo")) {
+				System.out.println("nulo");
+			}
+			else {
+				int id_arma = Integer.parseInt(request.getParameter("arma"));
+				int id_escudo = Integer.parseInt(request.getParameter("escudo"));
+				
+				caballero.setNombre(nombre);
+				caballero.setFuerza(fuerza);
+				caballero.setExperiencia(experiencia);
+				caballero.setFoto(foto);
+				
+				Arma arma = new Arma();
+				arma.setId(id_arma);
+				caballero.setArma(arma);
+				
+				Escudo escudo = new Escudo();
+				escudo.setId(id_escudo);
+				caballero.setEscudo(escudo);
+				
+				Conector conector = new Conector();
+				CaballeroModelo cm = new CaballeroModelo();
+				cm.setConector(conector);
+				
+				boolean existe = cm.checkNombreDisponible(caballero);
+				
+				if (existe || caballero.getNombre() == null || caballero.getExperiencia() > 100 || caballero.getExperiencia() < 0 || caballero.getFuerza() > 100 || caballero.getFuerza() < 0) {
+					System.out.println("nulo");
+				}else {
+					cm.insertCaballero(caballero);
+				}
+			}
+		}else {
+			System.out.println("nulo");
+		}
 		
-		caballero.setNombre(nombre);
-		caballero.setFuerza(fuerza);
-		caballero.setExperiencia(experiencia);
-		caballero.setFoto(foto);
-		
-		Arma arma = new Arma();
-		arma.setId(id_arma);
-		caballero.setArma(arma);
-		
-		Escudo escudo = new Escudo();
-		escudo.setId(id_escudo);
-		caballero.setEscudo(escudo);
-		
-		Conector conector = new Conector();
-		CaballeroModelo cm = new CaballeroModelo();
-		cm.setConector(conector);
-		
-		cm.insertCaballero(caballero);
 		
 		response.sendRedirect("IndexCaballero");
 	}
