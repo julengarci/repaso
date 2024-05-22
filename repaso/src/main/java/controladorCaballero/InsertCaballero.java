@@ -49,6 +49,7 @@ public class InsertCaballero extends HttpServlet {
 		
 		request.setAttribute("escudos", escudos);
 		request.setAttribute("armas", armas);
+		request.setAttribute("validacion", request.getParameter("validacion"));
 		
 		request.getRequestDispatcher("FormularioCaballero.jsp").forward(request, response);
 	}
@@ -57,6 +58,8 @@ public class InsertCaballero extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		boolean validacion = false;
 		Caballero caballero = new Caballero();
 
 		String nombre = request.getParameter("nombre");
@@ -64,12 +67,13 @@ public class InsertCaballero extends HttpServlet {
 
 		if (request.getParameter("fuerza").equals("")) {
 			fuerza = 0;
-			
+		}else {
+			fuerza = Integer.parseInt(request.getParameter("fuerza"));
 			int experiencia = Integer.parseInt(request.getParameter("experiencia"));
 			String foto = request.getParameter("foto");
 
 			if (request.getParameter("arma").equals("arma") || request.getParameter("escudo").equals("escudo")) {
-				System.out.println("nulo");
+				validacion = false;
 			}
 			else {
 				int id_arma = Integer.parseInt(request.getParameter("arma"));
@@ -95,17 +99,17 @@ public class InsertCaballero extends HttpServlet {
 				boolean existe = cm.checkNombreDisponible(caballero);
 				
 				if (existe || caballero.getNombre() == null || caballero.getExperiencia() > 100 || caballero.getExperiencia() < 0 || caballero.getFuerza() > 100 || caballero.getFuerza() < 0) {
-					System.out.println("nulo");
+					validacion = false;
+					response.sendRedirect("InsertCaballero?validacion="+validacion);
 				}else {
 					cm.insertCaballero(caballero);
+					validacion = true;
+					request.setAttribute("validacion", validacion);
+					request.getRequestDispatcher("IndexCaballero").forward(request, response);
 				}
 			}
-		}else {
-			System.out.println("nulo");
 		}
 		
-		
-		response.sendRedirect("IndexCaballero");
 	}
 
 }
