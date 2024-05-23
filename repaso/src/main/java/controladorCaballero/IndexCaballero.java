@@ -2,6 +2,7 @@ package controladorCaballero;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -45,7 +46,6 @@ public class IndexCaballero extends HttpServlet {
 		
 		request.setAttribute("caballeros", caballeros);
 		
-		
 		request.getRequestDispatcher("PanelCaballeros.jsp").forward(request, response);
 		
 	}
@@ -54,8 +54,25 @@ public class IndexCaballero extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+		String busqueda = request.getParameter("busqueda").toLowerCase();
+		
+		Conector conector = new Conector();
+		CaballeroModelo cm = new CaballeroModelo();
+		cm.setConector(conector);
+		
+		ArrayList<Caballero> caballeros = cm.getCaballeros();
+		
+		Iterator<Caballero> it = caballeros.iterator();
+		while (it.hasNext()) {
+			if (!(it.next().getNombre().toLowerCase().contains(busqueda))) {
+				it.remove();
+			}
+		}
+		
+		request.setAttribute("caballeros", caballeros);
+		
+		request.getRequestDispatcher("PanelCaballeros.jsp").forward(request, response);
 	}
 
 }
