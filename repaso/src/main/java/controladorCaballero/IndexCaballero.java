@@ -2,6 +2,7 @@ package controladorCaballero;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
 
 import javax.servlet.ServletException;
@@ -15,6 +16,7 @@ import modeloArma.Arma;
 import modeloArma.ArmaModelo;
 import modeloCaballero.Caballero;
 import modeloCaballero.CaballeroModelo;
+import modeloCaballero.ComparadorNombre;
 import modeloEscudo.Escudo;
 import modeloEscudo.EscudoModelo;
 
@@ -43,6 +45,8 @@ public class IndexCaballero extends HttpServlet {
 		cm.setConector(conector);
 		
 		ArrayList<Caballero> caballeros = cm.getCaballeros();
+		
+		caballeros.sort(new ComparadorNombre());
 		
 		request.setAttribute("caballeros", caballeros);
 		
