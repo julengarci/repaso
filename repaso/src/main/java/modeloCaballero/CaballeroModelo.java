@@ -9,6 +9,7 @@ import com.mysql.cj.jdbc.BlobFromLocator;
 
 import connection.Conector;
 import modeloArma.Arma;
+import modeloArma.ArmaModelo;
 import modeloEscudo.Escudo;
 
 public class CaballeroModelo {
@@ -73,7 +74,7 @@ public class CaballeroModelo {
 	public Arma getArma(int id) {
 		Arma arma = new Arma();
 		try {
-			PreparedStatement pst = conector.getConexion().prepareStatement("SELECT * FROM ARMAS WHERE id = ?");
+			PreparedStatement pst = conector.getConexion().prepareStatement("SELECT * FROM ARMAS WHERE ID = ?");
 			pst.setInt(1, id);
 			ResultSet rs = pst.executeQuery();
 			
@@ -84,7 +85,7 @@ public class CaballeroModelo {
 				arma.setFoto(rs.getString(4));
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			System.err.println("Exception");
 		}
 		return arma;
 	}
@@ -124,6 +125,64 @@ public class CaballeroModelo {
 			// TODO: handle exception
 		}
 		return existe;
+	}
+
+	public Caballero getCaballero(int id_caballero) {
+		Caballero caballero = new Caballero();
+		try {
+			PreparedStatement pst = conector.getConexion().prepareStatement("SELECT * FROM CABALLEROS WHERE ID = ?");
+			pst.setInt(1, id_caballero);
+			ResultSet rs = pst.executeQuery();
+			
+			if (rs.next()) {
+				
+				caballero.setId(id_caballero);
+				caballero.setNombre(rs.getString(2));
+				caballero.setFuerza(rs.getInt(3));
+				caballero.setExperiencia(rs.getInt(4));
+				caballero.setFoto(rs.getString(5));
+				
+				Arma arma = getArma(rs.getInt(6));
+				caballero.setArma(arma);
+				
+				Escudo escudo = getEscudo(rs.getInt(7));
+				caballero.setEscudo(escudo);
+				
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return caballero;
+	}
+	
+	public boolean checkId(Caballero caballero) {
+		boolean existe = false;
+		try {
+			PreparedStatement pst = conector.getConexion().prepareStatement("SELECT * FROM CABALLEROS WHERE ID= ?");
+			pst.setInt(1, caballero.getId());
+			ResultSet rs = pst.executeQuery();
+			
+			if (rs.next()) {
+				existe = true;
+			}
+			else {
+				existe = false;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return existe;
+	}
+
+	public void deleteCaballero(int id_caballero) {
+		try {
+			PreparedStatement pst = conector.getConexion().prepareStatement("DELETE FROM caballeros WHERE id=?");
+			pst.setInt(1, id_caballero);
+			pst.executeUpdate();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 	
 }

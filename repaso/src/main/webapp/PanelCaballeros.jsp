@@ -43,7 +43,7 @@
              </c:forEach>
 		</tbody>
 		<a href="InsertCaballero">insertar caballero</a>
-		<form method="post">
+		<form method="post" action="IndexCaballero">
 		  <div class="mb-3">
 		    <label for="exampleInputEmail1" class="form-label">busqueda</label>
 		    <input type="text" class="form-control" id="busqueda" name="busqueda" >
@@ -51,7 +51,18 @@
 		   <button type="submit" class="btn btn-primary">Buscar</button>
 		 </form>
 	</table>
+	<form method="get" action="LuchaSeleccionTodos">
+  		<button type="submit" class="btn btn-primary">Luchar</button>
+	 </form>
+	 
+	 <form action="DeleteCaballero" method="post">
+		  <div class="mb-3">
+		    <label for="eliminar" class="form-label">eliminar</label>
+		    <input type="text" class="form-control" id="eliminar" name="eliminar" >
+		  </div>
+		   <button type="submit" class="btn btn-primary">eliminar</button>
+		</form>
+	 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-	
 </body>
 </html>
